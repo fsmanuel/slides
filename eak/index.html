@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Ember App Kit - HH.js 15.03.2014</title>
+
+    <meta name="description" content="Introduction to EAK for HH.js 15.03.2014">
+    <meta name="author" content="Manuel Wiedenmann">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>Ember App Kit</h1>
+          <h3>Starting point for "ambitious web applications"</h3>
+          <p>
+            <small>by Manuel Wiedenmann</small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who am I?</h2>
+          <p>
+            Ruby on Rails & Ember.js freelancer. Working with ember.js since summer 2012.
+          </p>
+
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <!-- Example of nested vertical slides -->
+        <section>
+          <section>
+            <h2>What is ember.js</h2>
+            <ul>
+              <li>Opinionated JS framework for SPAs</li>
+              <li>Convention over Configuration</li>
+              <li>URL based routing</li>
+              <li>Data binding</li>
+              <li>(Web) Components</li>
+              <li>Ember Data for JSON/RESTFull APIs</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Who is using it?</h2>
+            <ul>
+              <li>Yahoo</li>
+              <li>Netflix</li>
+              <li>Travis CI</li>
+              <li>Zendesk</li>
+              <li>NBC News</li>
+              <li>Discourse</li>
+              <li>Vine.co</li>
+              <li>Ghost</li>
+              <li>Nest (acquired by Google)</li>
+              <li>...</li>
+            </ul>
+          </section>
+          <section>
+            <h2>ember.js vs AngularJS</h2>
+            <p>
+              <strong>ember.js</strong><br>
+              A framework for creating ambitious web applications.<br><br>
+              <strong>AngularJS</strong><br>
+              AngularJS is a toolset for building the framework most suited to your application development.<br><br>
+              <a href="https://www.youtube.com/watch?v=jScLjUlLTLI" target="_blank">Fluent 2014, "Keynote With Yehuda Katz and Tom Dale"</a>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>What does ember.js lack?</h2>
+            <p>
+              <ul>
+                <li>Development environment</li>
+                <li>Test environment</li>
+                <li>Build environment</li>
+              </ul>
+              <br><br>
+              => Tooling
+            </p>
+          </section>
+          <section>
+            <h2>That's where EAK steps in</h2>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>How to get started</h2>
+            <p>
+              <pre><code class="bash" style="font-size: 18px; margin-top: 20px;">
+  git clone git@github.com:stefanpenner/ember-app-kit.git
+  cd ember-app-kit && rm -rf .git
+
+  npm install -g grunt-cli
+  npm install -g bower
+  npm install
+
+  grunt server
+
+
+  Running "expressServer:debug" (expressServer) task
+  Using API Stub
+  >> Started development server on port 8000.
+
+  Running "watch" task
+  Waiting...
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <p>
+              <img width="800" height="432" src="images/eak-welcome.jpg">
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>What's in the box?</h2>
+          </section>
+          <section>
+            <h2>Folder Layout</h2>
+            <p>
+              <img src="images/eak-folder-layout.jpg">
+              <img src="images/eak-app-folder-layout.jpg">
+              
+            </p>
+          </section>
+          <section>
+            <h2>Gruntfile.js</h2>
+            <p>
+              Best Grunt config I have seen so far<br>
+              <img src="images/tasks-folder.jpg">
+            </p>
+          </section>
+          <section>
+            <h2>Grunt Tasks</h2>
+            <p>
+              <pre><code class="bash" style="font-size: 18px; margin-top: 20px;">
+                grunt
+                grunt server
+                grunt test
+                grunt test:server
+                grunt dist
+                grunt server:dist
+              </code></pre>
+              <br>
+              all use jshint to help you hack beautiful JS
+            </p>
+          </section>
+          <section>
+            <h2>CSS or CSS preprocessors</h2>
+            <ul>
+              <li>LESS</li>
+              <li>SASS</li>
+              <li>Compass</li>
+              <li>Stylus</li>
+            </ul>
+            <p>
+              <pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+                npm install --save-dev grunt-sass
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>JavaScript and/or CoffeeScript</h2>
+            <p>
+              You can even use EmberScript
+              <pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+                npm install --save-dev grunt-contrib-coffee
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>Templates</h2>
+            <ul>
+              <li>Handlebars</li>
+              <li>Emblem.js (like Haml)</li>
+              <li>and soon HTMLBars</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Loom generators</h2>
+            <p>
+              <pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+generate component x-buttonset
+generate controller users/mini-profile
+generate controller application type:array
+generate helper capitalize
+generate mixin queryable
+generate route index
+generate template profile
+generate view index
+              </code></pre>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Dependency management</h2>
+            <p>
+              Bower
+            </p>
+          </section>
+          <section>
+            <h2>bower.json</h2>
+            <p>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+{
+  "name": "ember-app-kit",
+  "dependencies": {
+    "handlebars": "~1.1.2",
+    "jquery": "~1.9.1",
+    "qunit": "~1.12.0",
+    "ember-qunit": "https://github.com/rpflorence/ember-qunit.git#master",
+    "ember": "~1.4.0",
+    "ember-data": "~1.0.0-beta.7",
+    "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
+    "ic-ajax": "~0.3.0",
+    "ember-testing-httpRespond": "~0.1.1"
+  },
+  "resolutions": {
+    "ember": "~1.4.0"
+  }
+}
+              </code></pre>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Modules & the Resolver</h2>
+            <p>
+            Rather than use AMD (Require.js) or CommonJS (Browserify) modules, apps built using the Ember App Kit use ES6 modules through the ES6 module transpiler. This means that you can build your apps using syntax from future JavaScript versions, but output AMD modules that can be used by existing JavaScript libraries today.
+            </p>
+          </section>
+          
+          <section>
+            <h2>Export & import of modules</h2>
+            <p>
+              <pre><code data-trim class="javascript" style="font-size: 18px; margin-top: 20px;">
+App.FooRoute = Ember.Route.extend({
+  model: function() {
+    return ['red', 'yellow', 'blue'];
+  }
+});
+              </code></pre>
+              app/routes/foo.js
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+var FooRoute = Ember.Route.extend({
+  model: function() {
+    return ['red', 'yellow', 'blue'];
+  }
+});
+
+export default FooRoute;
+              </code></pre>
+              
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+import FooRoute from "appkit/routes/foo";
+              </code></pre>
+              
+            </p>
+          </section>
+          <section>
+            <h2>Overview</h2>
+              <table>
+                <thead>
+                  <tr><th>Lookup</th><th>File</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>adapters/post</td>
+                    <td>app/adapters/post.js</td>
+                  </tr>
+                  <tr>
+                    <td>components/post-title</td>
+                    <td>app/components/post-title.js</td>
+                  </tr>
+                  <tr>
+                    <td>controllers/post</td>
+                    <td>app/controllers/post.js</td>
+                  </tr>
+                  <tr>
+                    <td>helpers/translate-title</td>
+                    <td>app/helpers/translate-title.js</td>
+                  </tr>
+                  <tr>
+                    <td>models/post</td>
+                    <td>app/models/post.js</td>
+                  </tr>
+                  <tr>
+                    <td>routes/post</td>
+                    <td>app/routes/post.js</td>
+                  </tr>
+                  <tr>
+                    <td>serializers/post</td>
+                    <td>app/serializers/post.js</td>
+                  </tr>
+                  <tr>
+                    <td>transforms/array</td>
+                    <td>app/transforms/array.js</td>
+                  </tr>
+                  <tr>
+                    <td>views/post</td>
+                    <td>app/views/post.js</td>
+                    <tr>
+                </tbody>
+              </table>
+
+          </section>
+        </section>
+        
+        <section>
+          <section>
+            <h2>Mock or proxy your API</h2>
+          </section>
+          <section>
+            <h2>Mock API responses</h2>
+            <p>
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+// package.json
+APIMethod: "stub"
+              </code></pre>
+              
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+// api-stub/routes.js
+module.exports = function(server) {
+  server.namespace("/api", function() {
+    server.get('/posts', function(req, res) {
+      res.send({
+        post: {
+          body: "hello mocking world"
+        }
+      });
+    });
+  });
+};
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>Proxy API requests</h2>
+            <p>
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+// package.json
+APIMethod: "proxy",
+proxyURL: "http://apiserver.dev:3000",
+proxyPath: "/api"
+              </code></pre>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Testing</h2>
+            <ul>
+              <li>QUnit test framework</li>
+              <li>ember-qunit test helpers</li>
+              <li>Test'em test runner</li>
+            </ul>
+          </section>
+          <section>
+            <h2>ember-qunit</h2>
+            <ul>
+              <li>moduleFor</li>
+              <li>moduleForModel</li>
+              <li>moduleForComponent</li>
+            </ul>
+            <p>
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+moduleFor('route:index', "Unit - IndexRoute", {
+  //needs: ['controller:index'],  only neccessary if you want to load other items into the runtime
+  setup: function () {},
+  teardown: function () {}
+} );
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>moduleForModel</h2>
+            <p>
+              <pre><code data-trim contenteditable class="javascript" style="font-size: 18px; margin-top: 20px;">
+import { test, moduleForModel } from 'appkit/tests/helpers/module-for';
+import Post from 'appkit/models/post';
+
+moduleForModel('post', 'Post Model', {
+  needs: ['model:comment']
+});
+
+test("Post is a valid ember-data Model", function () {
+  var post = this.subject({title: 'A title for a post', user: 'bob'});
+  ok(post);
+  ok(post instanceof DS.Model);
+  ok(post instanceof Post);
+});
+              </code></pre>
+            </p>
+          </section>
+        </section>
+        
+        <section>
+          <section>
+            <h2>Things to Come</h2>
+            <img src="images/1-5-0-beta-4.jpg">
+          </section>
+          <section>
+            <h2>HTMLBars</h2>
+            <p>
+              Around 3x faster than Handlebars<br>
+              You can opt out from jQuery
+              <br><br>
+              <a href="https://github.com/tildeio/htmlbars" target="_blank">htmlbars @github</a>
+            </p>
+          </section>
+          <section>
+            <h2>Broccoli</h2>
+            <p>
+              Browser compilation library – a build tool for applications that run in the browser<br><br>
+              It's super fast!<br><br>
+              <a href="https://github.com/joliss/broccoli" target="_blank">broccoli @github</a>
+            </p>
+          </section>
+          <section>
+            <h2>ember-cli</h2>
+            <p>
+              ember-cli will replace EAK<br><br>
+              <a href="https://github.com/stefanpenner/ember-cli" target="_blank">ember-cli @github</a>
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <h2>Hire me!</h2>
+          <p>
+            manuel@funkensturm.de<br>
+            @fsmanuel<br>
+            github.com/fsmanuel<br>
+          </p>
+        </section>
+
+        <section>
+          <h1>Q&A</h1>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
