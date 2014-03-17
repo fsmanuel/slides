@@ -158,8 +158,18 @@
             <h2>Folder Layout</h2>
             <p>
               <img src="images/eak-folder-layout.jpg">
+            </p>
+          </section>
+          <section>
+            <h2>Folder Layout app</h2>
+            <p>
               <img src="images/eak-app-folder-layout.jpg">
-              
+            </p>
+          </section>
+          <section>
+            <h2>Folder Layout config</h2>
+            <p>
+              <img src="images/eak-config-folder-layout.jpg">
             </p>
           </section>
           <section>
@@ -193,8 +203,12 @@
               <li>Stylus</li>
             </ul>
             <p>
-              <pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
-                npm install --save-dev grunt-sass
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+// Grundfile.js
+// * for LESS, run `npm install --save-dev grunt-contrib-less`
+// * for SCSS (without SASS), run `npm install --save-dev grunt-sass`
+// * for Compass, run `npm install --save-dev grunt-contrib-compass`
+// * for Stylus/Nib, `npm install --save-dev grunt-contrib-stylus`
               </code></pre>
             </p>
           </section>
@@ -202,8 +216,10 @@
             <h2>JavaScript and/or CoffeeScript</h2>
             <p>
               You can even use EmberScript
-              <pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
-                npm install --save-dev grunt-contrib-coffee
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+// Grundfile.js
+// * for Coffeescript, run `npm install --save-dev grunt-contrib-coffee`
+// * For EmberScript, run `npm install --save-dev grunt-ember-script`
               </code></pre>
             </p>
           </section>
@@ -214,6 +230,13 @@
               <li>Emblem.js (like Haml)</li>
               <li>and soon HTMLBars</li>
             </ul>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+// Grundfile.js
+// * for Emblem, run the following commands:
+//   `npm uninstall --save-dev grunt-ember-templates`
+//   `npm install --save-dev grunt-emblem`
+//   `bower install emblem.js --save`
+              </code></pre>
           </section>
           <section>
             <h2>Loom generators</h2>
@@ -229,6 +252,26 @@ generate template profile
 generate view index
               </code></pre>
             </p>
+          </section>
+          <section>
+            <h2>More</h2>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+// Grundfile.js
+// * for LiveReload, `npm install --save-dev connect-livereload`
+// * for displaying the execution time of the grunt tasks,
+//   `npm install --save-dev time-grunt`
+// * for minimizing the index.html at the end of the dist task
+//   `npm install --save-dev grunt-contrib-htmlmin`
+// * for minimizing images in the dist task
+//   `npm install --save-dev grunt-contrib-imagemin`
+// * for using images based CSS sprites (http://youtu.be/xD8DW6IQ6r0)
+//   `npm install --save-dev grunt-fancy-sprites`
+//   `bower install --save fancy-sprites-scss`
+// * for automatically adding CSS vendor prefixes (autoprefixer)
+//   `npm install --save-dev grunt-autoprefixer`
+// * for package import validations
+//   `npm install --save-dev grunt-es6-import-validate`
+              </code></pre>
           </section>
         </section>
 
