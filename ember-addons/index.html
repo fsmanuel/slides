@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Ember Addons - Contribute to the ember ecosystem</title>
+
+    <meta name="description" content="Introduction to ember-addons for ember.HH 03.09.2015">
+    <meta name="author" content="Manuel Wiedenmann">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>Ember Addons</h1>
+          <h3>Contribute to the ember ecosystem</h3>
+          <p>
+            <small>by Manuel Wiedenmann</small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who am I?</h2>
+          <p>
+            Ruby on Rails & Ember.js freelancer.<br>
+            Working with Ember.js since summer 2012.
+          </p>
+
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <!-- Example of nested vertical slides -->
+        <section>
+          <section>
+            <h2>Addons - What can they do</h2>
+            <ul>
+              <li>
+                Pieces to a consuming application<br>
+                (Routes, Controllers, Components, etc)
+              </li>
+              <li>Development Server Middlewares</li>
+              <li>Blueprints (aka generators)</li>
+              <li>Configuration</li>
+              <li>Commands</li>
+              <li>Modify Build Assets</li>
+              <li>Update build output</li>
+              <li>Preprocessors</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Addon Infrastructure Hooks</h2>
+            <ul>
+              <li>config (merge)</li>
+              <li>blueprintsPath</li>
+              <li>includedCommands</li>
+              <li>serverMiddleware</li>
+              <li>preBuild</li>
+              <li>postBuild</li>
+              <li>buildError</li>
+              <li>setupPreprocessorRegistry</li>
+              <li>lintTree</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Addon Build Hooks</h2>
+            <ul>
+              <li>treeFor</li>
+              <li>included</li>
+              <li>contentFor</li>
+              <li>postprocessTree</li>
+              <li>isDevelopingAddon</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2 class="method-headline">config</h2>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  config: function(env, appConfig) {
+    // modify config dependend on env
+
+    // Will be merged with app. The app will always win!
+    return {
+      'simple-addon': {
+        enabled: true
+      }
+    };
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">blueprintsPath</h2>
+          <pre><code data-trim contenteditable>
+var path = require('path');
+
+module.exports = {
+  name: 'Simple Addon',
+
+  blueprintsPath: function() {
+    // default
+    return path.join(__dirname, 'blueprints');
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">includedCommands</h2>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  includedCommands: function() {
+    return {
+      'divshot': require('./lib/commands/divshot')
+    };
+  }
+}
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2 class="method-headline">serverMiddleware</h2>
+          <ul>
+            <li>No default implementation</li>
+          </ul>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  serverMiddleware: function(config) {
+    var app = config.app; // express server
+    var options = config.options; // project, watcher, environment, etc
+
+    app.use(function(req, res, next) {
+      var appConfig = options.project.config(options.environment);
+
+      if (options.liveReload) {
+        // do something
+      }
+
+      next();
+    });
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">preBuild</h2>
+          Hook called before build takes place.<br>
+          <ul>
+            <li>No default implementation</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="method-headline">postBuild</h2>
+          Gives access to the result of the tree,<br>
+          and the location of the output.<br><br>
+          <ul>
+            <li>
+              Result object from broccoli build
+              <ul>
+                <li>result.directory - final output path</li>
+              </ul>
+            </li>
+            <li>No default implementation</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="method-headline">buildError</h2>
+          Will be called on when an error occurs during the preBuild or postBuild hooks for addons, or when builder#build fails<br>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  buildError: function(error) {
+    // act on error
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">setupPreprocessorRegistry</h2>
+          Used to add preprocessors to the preprocessor registry.<br>
+          Like CoffeeScript, SASS, LESS, etc.
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  setupPreprocessorRegistry: function(type, registry) {
+    var addonContext = this;
+
+    registry.add('template', {
+      name: 'ember-cli-htmlbars',
+      ext: 'hbs',
+      toTree: function(tree) {
+        return htmlbarsCompile(tree, addonContext.htmlbarsOptions());
+      }
+    });
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">lintTree</h2>
+          Return value is merged into the tests tree.<br>
+          This lets you inject linter output as test results.
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  lintTree: function(type, tree) {
+    return jshintTrees(tree, {
+      jshintrcPath: this.jshintrc[type],
+      description: 'JSHint ' +  type + '- QUnit'
+    });
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">included</h2>
+          <ul>
+            <li>Called when the addon is included in a build</li>
+            <li>Receives the `EmberApp` instance as an arg</li>
+            <li>Generally used to call `app.import`</li>
+          </ul>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  included: function(app) {
+    this._super.included(app);
+
+    var colpickPath = path.join(app.bowerDirectory, 'colpick');
+
+    app.import(path.join(colpickPath, 'js', 'colpick.js'));
+    app.import(path.join(colpickPath, 'css', 'colpick.css'));
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">contentFor</h2>
+          Allow addons to implement contentFor method to add string output into the associated {{content-for 'foo'}} section in index.html
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  contentFor: function(type, config) {
+    if (type === 'head') {
+      return "Google Analytics Code";
+    }
+
+    return '';
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">treeFor</h2>
+          <ul>
+            <li>treeForApp</li>
+            <li>treeForStyles</li>
+            <li>treeForTemplates</li>
+            <li>treeForAddon</li>
+            <li>treeForVendor</li>
+            <li>treeForTestSupport</li>
+            <li>treeForPublic</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="method-headline">treeForAddon</h2>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  treeForAddon: function(tree) {
+    // determine if ember-data is present
+    var checker = new VersionChecker(this);
+    var dep = checker.for('ember-data', 'bower');
+    var hasEmberData = dep.gt('2.0.0') || dep.satisfies('>= 1.13.0');
+
+    if (!hasEmberData) {
+      tree = stew.rm(tree, 'adapters/adapter.js');
+      tree = stew.rm(tree, 'serializers/serializer.js');
+    }
+
+    return this._super.treeForAddon.call(this, tree);
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">postprocessTree</h2>
+          <ul>
+            <li>post processing type (eg all)</li>
+            <li>receives tree after build</li>
+            <li>receives tree for a given type after preprocessors (like HTMLBars or babel) run.</li>
+          </ul>
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  postprocessTree: function(type, tree) {
+    // type is one of: js, template, all, css, test
+
+    return tree;
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 class="method-headline">isDevelopingAddon</h2>
+          Allows to mark the addon as developing, triggering live-reload in the project the addon is linked to
+          <pre><code data-trim contenteditable>
+module.exports = {
+  name: 'Simple Addon',
+
+  isDevelopingAddon: function() {
+    return true;
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Basic Guidelines</h2>
+          <ul>
+            <li>Keep all code in `addon/`</li>
+            <li>
+              import and re-export in `app/` if needed<br>
+              (mostly for components and templates)
+            </li>
+            <li>Allows extension of your addon</li>
+            <li>Allows easier unit testing</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>Discovery</h2>
+            <ul>
+              <li>Search project dependencies</li>
+              <li>Look for `ember-addon` in keywords</li>
+              <li>Search `package.json`'s `ember-addon` key for `paths`</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Discovery - App</h2>
+            <pre><code data-trim contenteditable>
+{
+  "name": "test-project",
+  "ember-addon": {
+    "paths": ["./lib/ember-super-button"]
+  },
+  "devDependencies": {
+    "ember-cli": "latest",
+    "ember-random-addon": "latest"
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Discovery - Addon</h2>
+            <pre><code data-trim contenteditable>
+{
+  "name": "ember-super-button",
+  "keywords": [
+    "ember-addon"
+  ]
+}
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Creating an Addon</h2>
+Outside of the project:
+            <pre><code data-trim contenteditable>
+ember addon my-addon
+            </code></pre>
+
+Within the project:<br>
+            <pre><code data-trim contenteditable>
+ember generate in-repo-addon my-addon
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Creating - External</h2>
+            <pre><code data-trim contenteditable>
+$ tree -L 1
+.
+├── LICENSE.md
+├── README.md
+├── addon
+├── app
+├── bower.json
+├── bower_components
+├── config
+├── ember-cli-build.js
+├── index.js
+├── node_modules
+├── package.json
+├── testem.json
+├── tests
+└── vendor
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Creating - In Repo</h2>
+            <pre><code data-trim contenteditable>
+$ tree lib/my-addon
+lib/my-addon
+├── index.js
+└── package.json
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Creating - Minimal Addon</h2>
+            <pre><code data-trim contenteditable>
+// index.js
+module.exports = {
+  name: "my-addon"
+};
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Testing</h2>
+          <ul>
+            <li>Default generator creates a test app</li>
+            <li>Unit tests</li>
+            <li>Integration tests (against test/dummy app)</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>Dependencies</h2>
+            <ul>
+              <li>NPM Package for "node-land" tooling</li>
+              <li>Bower Package for "browser-land" tooling</li>
+              <li>`bower.json` as a way for apps to override</li>
+              <li>Blueprint for addon name, for installing bower packages needed</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Dependencies Blueprint</h2>
+            <pre><code data-trim contenteditable>
+// blueprints/my-addon/index.js
+module.exports = {
+  afterInstall: function(options) {
+    return this.addBowerPackageToProject('colpick', '2.0.2');
+  }
+}
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Examples</h2>
+        </section>
+
+        <section>
+          <h2>Hire me!</h2>
+          <p>
+            manuel@funkensturm.de<br>
+            @fsmanuel<br>
+            github.com/fsmanuel<br>
+          </p>
+        </section>
+
+        <section>
+          <h1>Q&A</h1>
+        </section>
+
+        <section>
+          <h1>Links</h1>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/watch?v=e1l07N0ukzY&t=1h40m53s" target="_blank">
+                ember-cli add-ons talk by Robert Jackson
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/ember-cli/ember-cli/blob/master/ADDON_HOOKS.md" target="_blank">
+                ADDON_HOOKS.md
+              </a>
+          </ul>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
