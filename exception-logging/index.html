@@ -108,7 +108,7 @@
             <h2>window.onerror</h2>
             <pre><code class="js" data-trim contenteditable>
 window.onerror = function(message, file, line, column, error) {
-  if (message === 'Script error.') {
+  if (typeof message === 'string' && message === 'Script error.') {
     return; // Ignore.
   }
 
