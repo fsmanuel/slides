@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>The Ember Framework</title>
+    <meta name="description" content="Introduction to the ember framework">
+    <meta name="author" content="Manuel Wiedenmann">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Ember</h1>
+          <h3>A framework for creating ambitious web applications.</h3>
+          <p>
+            <small>by Manuel Wiedenmann</small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who am I?</h2>
+          <p>
+            Ruby on Rails & Ember.js freelancer.<br>
+            I love Open Source.
+          </p>
+        </section>
+
+<!-- TODO: ToC -->
+        <section>
+          <section>
+            <h2>History</h2>
+          </section>
+
+          <section>
+            <h2>Origins</h2>
+            <p>
+              Ember originates from <a href="http://sproutcore.com/" target="_blank">SproutCore</a> which happens to be still an <a href="https://github.com/sproutcore/sproutcore/" target="_blank">active project</a>. MobileMe the predecessor of Apples <a href="https://www.icloud.com/" target="_blank">iCloud</a> was largely build on SproutCore.
+            </p>
+          </section>
+
+          <section>
+            <h2>First commit</h2>
+              <a href="https://github.com/emberjs/ember.js/commits/24f801c64e57dad499a5659b2efcac363e6ade86" target="_blank"><img src="images/ember-first-commit.jpg"></a>
+          </section>
+
+          <section>
+            <h2>Creators & Core Team</h2>
+            <p>
+              Tom Dale & Yehuda Katz<br>
+              <a href="http://emberjs.com/team/" target="_blank">Core Team</a>
+            </p>
+          </section>
+
+          <section>
+            <h2>Releases</h2>
+            <blockquote>
+              <p>
+                Ember releases follow a "train" release model. Every six weeks, the master branch of Ember (sometimes referred to as "canary") branches to become the new beta. After six weeks as a beta, this version becomes the new stable release of Ember.
+              </p>
+              <p>
+                <a href="http://emberjs.com/builds/" target="_blank">emberjs.com</a>
+              </p>
+            </blockquote>
+          </section>
+
+          <section>
+            <h2>Channels</h2>
+            <ul>
+              <li>CANARY - Current</li>
+              <li>BETA - 2.9.0-beta.5, 15 days ago</li>
+              <li>RELEASE - 2.8.2, on October 6th, 2016</li>
+              <li>LONG-TERM SUPPORT (LTS) - 2.4.6, on June 6th, 2016</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>SemVer</h2>
+            <blockquote>
+              The Ember project adheres to semantic versioning. Releases are named according to a MAJOR.MINOR.PATCH scheme, and only MAJOR versions releases may change or remove public APIs after deprecation. MINOR versions may introduce new features so long as they are backwards compatible, and PATCH releases may include bug or security fixes.
+            </blockquote>
+          </section>
+
+          <section>
+            <h2>Ember 3.0</h2>
+              <p>
+                According to the release cycle Ember 3.0 should ship arround Dec 1st.
+                They ain't no new features but old/deprecated code removed.
+              </p>
+          </section>
+        </section>
+
+        <section>
+          <h2>Hire me!</h2>
+          <p>
+            manuel@funkensturm.de<br>
+            @fsmanuel<br>
+            github.com/fsmanuel<br>
+            github.com/funkensturm<br>
+          </p>
+        </section>
+
+        <section>
+          <h1>Q&A</h1>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
