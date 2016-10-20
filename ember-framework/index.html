@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>The Ember Framework</title>
+		<title>The Ember Framework - WTM 20.10.2016</title>
     <meta name="description" content="Introduction to the ember framework">
     <meta name="author" content="Manuel Wiedenmann">
 
@@ -38,11 +38,23 @@
           <h2>Who am I?</h2>
           <p>
             Ruby on Rails & Ember.js freelancer.<br>
-            I love Open Source.
+            I love Open Source and a lot of other things.
           </p>
         </section>
 
-<!-- TODO: ToC -->
+        <section>
+          <ul>
+            <li>History</li>
+            <li>Why is it a framework?</li>
+            <li>What makes it so great?</li>
+            <li>Pros and Cons</li>
+            <li>API Documentation</li>
+            <li>Who uses Ember</li>
+            <li>Demo</li>
+            <li>Q & A</li>
+          </ul>
+        </section>
+
         <section>
           <section>
             <h2>History</h2>
@@ -84,9 +96,9 @@
             <h2>Channels</h2>
             <ul>
               <li>CANARY - Current</li>
-              <li>BETA - 2.9.0-beta.5, 15 days ago</li>
-              <li>RELEASE - 2.8.2, on October 6th, 2016</li>
-              <li>LONG-TERM SUPPORT (LTS) - 2.4.6, on June 6th, 2016</li>
+              <li>BETA - 2.10.0-beta.1, 3 days ago</li>
+              <li>RELEASE - 2.9.0, on October 17th, 2016</li>
+              <li>LONG-TERM SUPPORT (LTS) - 2.8.2, on October 17th, 2016</li>
             </ul>
           </section>
 
@@ -99,21 +111,247 @@
 
           <section>
             <h2>Ember 3.0</h2>
-              <p>
-                According to the release cycle Ember 3.0 should ship arround Dec 1st.
-                They ain't no new features but old/deprecated code removed.
-              </p>
+            <p>
+              They ain't no new features but old/deprecated code removed.
+            </p>
           </section>
         </section>
 
         <section>
-          <h2>Hire me!</h2>
+          <section>
+            <h2>Why is it a framework?</h2>
+
+            <p>
+              First of all because it claims to be one.
+            </p>
+
+            <blockquote>
+              A framework for creating ambitious web applications.
+            </blockquote>
+          </section>
+
+          <section>
+            <h2>Conventions over Configuration</h2>
+          </section>
+
+          <section>
+            <blockquote>
+              <p>
+                Largely ignored, often invisible, standards created stability in technological systems. Whether it’s screws or shipping containers, standards transformed the novel into the mundane, and made the local into the global.
+              </p>
+              <p>
+                <a href="https://aeon.co/essays/most-of-the-time-innovators-don-t-move-fast-and-break-things" target="_blank">W Patrick McCray</a>
+              </p>
+            </blockquote>
+
+            You should read the excellent essay on innovation and technology on <a href="https://aeon.co/essays/most-of-the-time-innovators-don-t-move-fast-and-break-things" target="_blank">aeon.co</a>
+          </section>
+
+          <section>
+            <h2>Core Concepts</h2>
+            <img src="images/ember-core-concepts.png" width="60%">
+          </section>
+
+          <section>
+            <h2>ember-cli</h2>
+
+            <pre><code class="bash" data-trim contenteditable>
+npm install -g ember-cli@2.8
+ember new ember-quickstart
+cd ember-quickstart
+ember server
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Directory Structure</h2>
+
+            <pre><code class="bash" data-trim contenteditable>
+$ tree -L 1
+.
+├── app
+├── bower_components
+├── config
+├── node_modules
+├── public
+├── tests
+├── vendor
+├── bower.json
+├── ember-cli-build.js
+├── package.json
+├── README.md
+└── testem.js
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>App Directory Structure</h2>
+
+            <pre><code class="bash" data-trim contenteditable>
+$ tree -L 1
+.
+├── components
+├── controllers
+├── helpers
+├── models
+├── routes
+├── styles
+├── templates
+├── app.js
+├── index.html
+├── resolver.js
+└── router.js
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Generators aka Blueprints</h2>
+
+            <pre><code class="bash" data-trim contenteditable>
+ember generate template user
+ember g route user
+ember g model user
+ember g component user-profile
+ember g --help # see all the generators
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Testing & Builds</h2>
+
+            <pre><code class="bash" data-trim contenteditable>
+ember test
+            </code></pre>
+
+            <p>
+              You can use:
+            </p>
+            <ul>
+              <li>QUnit</li>
+              <li>Mocha</li>
+            </ul>
+
+            <pre><code class="bash" data-trim contenteditable>
+ember build
+ember build --env production
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>What makes it so great?</h2>
+            <ul>
+              <li>Productivity</li>
+              <li>Tooling</li>
+              <li>Addons</li>
+              <li>Upgrade path</li>
+              <li>Community</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Productivity</h2>
+            <ul>
+              <li>Fast onboarding of new team members because every ember app is structured the same</li>
+              <li>You don't have to invent everything all the time</li>
+              <li>You don't need an architect to structure your app</li>
+              <li>You can concentrate on your app</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Tooling</h2>
+            <ul>
+              <li><a href="https://ember-cli.com/" target="_blank">ember-cli</a> The tool that makes it all happen</li>
+              <li><a href="https://github.com/broccolijs/broccoli" target="_blank">broccoli</a> Asset pipeline</li>
+              <li>ES6 since 2014</li>
+              <li><a href="https://github.com/emberjs/ember-inspector" target="_blank">Ember Inspector</a> Browser extension</li>
+              <li><a href="https://ember-fastboot.com/" target="_blank">Ember-Fastboot</a> Server-Side rendering</li>
+              <li><a href="https://emberobserver.com/addons/ember-cli-deploy" target="_blank">ember-cli-deploy</a> Deployment pipeline</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Addons</h2>
+            <p>
+              <a href="https://emberobserver.com/" target="_blank">emberobserver.com</a>
+
+              <ul>
+                <li><a href="https://emberobserver.com/addons/ember-data" target="_blank">ember-data</a> Out of the box support JSON:API</li>
+                <li><a href="https://emberobserver.com/addons/emberfire" target="_blank">emberfire</a> An ember-data adapter for Firebase</li>
+                <li><a href="https://emberobserver.com/addons/ember-cli-mirage" target="_blank">ember-cli-mirage</a> Develop without a backend</li>
+                <li><a href="https://github.com/ember-animation/liquid-fire" target="_blank">Liquid Fire</a> For animations</li>
+                <li><a href="https://emberobserver.com/addons/ember-engines" target="_blank">ember-engines</a> Build isolated parts of an app</li>
+              </ul>
+            </p>
+          </section>
+
+          <section>
+            <h2>Build for other environments</h2>
+            <ul>
+              <li>
+                <a href="https://emberobserver.com/addons/ember-cordova" target="_blank">ember-cordova</a>
+              </li>
+              <li>
+                <a href="https://emberobserver.com/addons/ember-electron" target="_blank">ember-electron</a>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Upgrade path</h2>
+          </section>
+
+          <section>
+            <h2>Community</h2>
+          </section>
+        </section>
+
+        <section>
+          <h2>Cons</h2>
+          <ul>
+            <li>Steep learning curve</li>
+            <li>Maybe not the fastest rendering engine - yet</li>
+            <li>Not the smallest thing you can load
+              <ul>
+                <li>ember.js minified production build 419 KB</li>
+                <li>ember data minified production build 141 KB</li>
+                <li>= 560 KB</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>API Documentation</h2>
+          <ul>
+            <li><a href="https://guides.emberjs.com/v2.8.0/" target="_blank">Guides</a></li>
+            <li><a href="http://emberjs.com/api/" target="_blank">API Docs</a></li>
+            <li><a href="https://ember-twiddle.com/" target="_blank">Ember Twiddle</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Who uses Ember</h2>
           <p>
-            manuel@funkensturm.de<br>
-            @fsmanuel<br>
-            github.com/fsmanuel<br>
-            github.com/funkensturm<br>
+            <a href="http://emberjs.com/ember-users/" target="_blank">http://emberjs.com/ember-users/</a>
           </p>
+        </section>
+
+        <section>
+          <h2>Demo</h2>
+        </section>
+
+        <section>
+          <h2>Hire me!</h2>
+          <ul>
+            <li>manuel@funkensturm.de</li>
+            <li>@fsmanuel</li>
+            <li>github.com/fsmanuel</li>
+            <li>github.com/funkensturm</li>
+          </ul>
         </section>
 
         <section>
