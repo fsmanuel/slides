@@ -1,0 +1,1096 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Providing a JSON API spec compliant API - RUGHH 14.06.2017</title>
+    <meta name="description" content="Providing a JSON API spec compliant API">
+    <meta name="author" content="Manuel Wiedenmann">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/main.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section>
+          <h1>Providing a JSON API spec compliant API</h1>
+          <p>
+            <small>by Manuel Wiedenmann</small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who am I?</h2>
+          <p>
+            Ruby on Rails & Ember.js freelancer.<br>
+            I love Open Source and a lot of other things.
+          </p>
+        </section>
+
+        <section>
+          <ul>
+            <li>APIs</li>
+            <li>JSON API</li>
+            <li>JSONAPI::Resources</li>
+            <li>Demo</li>
+            <li>Q & A</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>APIs</h2>
+          </section>
+
+          <section>
+            <h2>Designing APIs is hard!</h2>
+          </section>
+
+          <section>
+            <h2>It really is!</h2>
+
+            <ul>
+              <li>Consistency</li>
+              <li>Efficiency</li>
+              <li>Readability</li>
+              <li>Flexibility</li>
+              <li>Discoverability</li>
+              <li>Documentation</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>JSON API</h2>
+          </section>
+
+          <section>
+            <h2>History</h2>
+            <ul>
+              <li>2013-05-03: Initial release of the draft.</li>
+              <li>2013-07-21: Media type registration completed with the IANA.</li>
+              <li>2014-07-05: Release candidate 1 released.</li>
+              <li>2015-02-18: Release candidate 2 released.</li>
+              <li>2015-03-16: Release candidate 3 released.</li>
+              <li>2015-05-21: Release candidate 4 released.</li>
+              <li>2015-05-29: 1.0 final released.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>The pitch</h2>
+            <p>
+              JSON API is a specification for how a client should request that resources be fetched or modified, and how a server should respond to those requests.
+            </p>
+            <p>
+              JSON API is designed to minimize both the number of requests and the amount of data transmitted between clients and servers. This efficiency is achieved without compromising readability, flexibility, or discoverability.
+            </p>
+          </section>
+
+          <section>
+            <h2>Editors</h2>
+            <p>
+              There are five primary editors of this specification:
+            </p>
+
+            <ul>
+              <li>Steve Klabnik</li>
+              <li>Yehuda Katz</li>
+              <li>Dan Gebhardt</li>
+              <li>Tyler Kellen</li>
+              <li>Ethan Resnick</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>JSON API specification</h2>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## MIME Types
+
+              JSON API has been properly registered with the IANA. Its media type designation is `application/vnd.api+json`
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Document Structure</h2>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Top level
+
+              ```js
+              {
+                "data": null,
+                "meta": {} // optional
+              }
+              ```
+
+              or
+
+              ```js
+              {
+                "data": [],
+                "meta": {} // optional
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Resource identifier object
+
+              Every resource object **MUST** contain an `id` member and a `type` member. The values of the id and type members **MUST** be strings.
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1"
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Resource Objects
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                  },
+                  "relationships": {
+                  },
+                  "links": {
+                    "self": "http://example.com/articles/1"
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fields
+
+              > A resource object’s `attributes` and its `relationships` are collectively called its “fields”.
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Attributes
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                    "title": "Rails is Omakase",
+                    "body": "Lots of words to explain why Rails is Omakase."
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Relationships - to-one
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "relationships": {
+                    "author": {
+                      "links": {
+                        "self": "http://example.com/articles/1/relationships/author",
+                        "related": "http://example.com/articles/1/author"
+                      },
+                      "data": { "type": "people", "id": "9" }
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Relationships - to-many
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "relationships": {
+                    "comments": {
+                      "links": {
+                        "self": "http://example.com/articles/1/relationships/comments",
+                        "related": "http://example.com/articles/1/comments"
+                      },
+                      "data": [
+                        { "type": "comments", "id": "5" },
+                        { "type": "comments", "id": "12" }
+                      ]
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Compound Documents
+
+              To reduce the number of HTTP requests, servers **MAY** allow responses that include related resources along with the requested primary resources.
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {},
+                  "relationships": {},
+                  "included": []
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Compound documents
+              ### full linkage
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "relationships": {
+                    "author": {
+                      "data": { "type": "people", "id": "9" }
+                    }
+                  },
+                  "included": [{
+                    "type": "people",
+                    "id": "9",
+                    "attributes": {
+                      "first-name": "Dan",
+                      "last-name": "Gebhardt",
+                      "twitter": "dgeb"
+                    }
+                  }]
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              [Full example](http://jsonapi.org/format/#document-compound-documents)
+            </textarea>
+          </section>
+
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Data
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Resources
+              ### Collection
+
+              ```http
+              GET /articles HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```json
+              {
+                "data": [{
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                    "title": "Rails is Omakase",
+                    "body": "Lots of words to explain why Rails is Omakase."
+                  },
+                  "relationships": {
+                    "author": {
+                      "links": {
+                        "self": "http://example.com/articles/1/relationships/author",
+                        "related": "http://example.com/articles/1/author"
+                      },
+                      "data": { "type": "people", "id": "9" }
+                    }
+                  }
+                }]
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Resources
+              ### single record
+
+              ```http
+              GET /articles/1 HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                    "title": "Rails is Omakase",
+                    "body": "Lots of words to explain why Rails is Omakase."
+                  },
+                  "relationships": {
+                    "author": {
+                      "links": {
+                        "self": "http://example.com/articles/1/relationships/author",
+                        "related": "http://example.com/articles/1/author"
+                      },
+                      "data": { "type": "people", "id": "9" }
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Resources
+              ### relationship
+
+              ```http
+              GET /articles/1/author HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```json
+              {
+                "data": {
+                  "type": "people",
+                  "id": "9",
+                  "attributes": {
+                    "first-name": "Dan",
+                    "last-name": "Gebhardt",
+                    "twitter": "dgeb"
+                  },
+                  "relationships": {
+                    "articles": {
+                      "links": {
+                        "self": "http://example.com/authors/9/relationships/articles",
+                        "related": "http://example.com/authors/9/articles"
+                      },
+                      "data": [
+                        { "type": "articles", "id": "1" }
+                      ]
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Relationships
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Relationships
+              ### to-many
+
+              ```http
+              GET /articles/1/relationships/comments HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```json
+              {
+                "links": {
+                  "self": "/articles/1/relationships/comments",
+                  "related": "/articles/1/comments"
+                },
+                "data": [
+                  { "type": "comments", "id": "2" },
+                  { "type": "comments", "id": "3" }
+                ]
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Fetching Relationships
+              ### to-one
+
+              ```http
+              GET /articles/1/relationships/author HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```json
+              {
+                "links": {
+                  "self": "/articles/1/relationships/author",
+                  "related": "/articles/1/author"
+                },
+                "data": {
+                  "type": "people",
+                  "id": "9"
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Inclusion of Related Resources
+
+              ```http
+              GET /articles/1?include=comments HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /articles/1?include=comments,comments.author HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /articles/1?include=author,comments,comments.author HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Sparse Fieldsets
+
+              ```http
+              GET /articles?fields[articles]=title HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /articles?include=author&fields[articles]=title&fields[people]=twitter HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Sorting
+
+              ```http
+              GET /people?sort=age HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /people?sort=age,name HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /articles?sort=-created,title HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Pagination - recommanded
+
+              ```http
+              GET /people?page[number]=1&page[size]=25 HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /people?page[offset]=26&page[limit]=25 HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Filtering - recommanded
+
+              ```http
+              GET /people?filter[name]=Dan HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+
+              ```http
+              GET /people?filter[name]=Dan&filter[age]=42 HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Creating, Updating and Deleting Resources
+
+              A request MUST completely succeed or fail (in a single “transaction”). No partial updates are allowed.
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Creating Resources
+              ### Request
+
+              ```http
+              POST /photos HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": {
+                  "type": "photos",
+                  "attributes": {
+                    "title": "Ember Hamster",
+                    "src": "http://example.com/images/productivity.png"
+                  },
+                  "relationships": {
+                    "photographer": {
+                      "data": { "type": "people", "id": "9" }
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Creating Resources
+              ### Response
+
+              ```http
+              HTTP/1.1 201 Created
+              Location: http://example.com/photos/550e8400-e29b-41d4-a716-446655440000
+              Content-Type: application/vnd.api+json
+
+              {
+                "data": {
+                  "type": "photos",
+                  "id": "550e8400-e29b-41d4-a716-446655440000",
+                  "attributes": {
+                    "title": "Ember Hamster",
+                    "src": "http://example.com/images/productivity.png"
+                  },
+                  "links": {
+                    "self": "http://example.com/photos/550e8400-e29b-41d4-a716-446655440000"
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Resources
+
+              If a request does not include all of the attributes for a resource, the server **MUST** interpret the missing attributes as if they were included with their current values. The server **MUST NOT** interpret missing attributes as null values.
+
+              ```http
+              PATCH /articles/1 HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                    "title": "To TDD or Not",
+                    "text": "TLDR; It's complicated... but check your test coverage regardless."
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Resources
+
+              ... the server **MUST** interpret the missing relationships as if they were included with their current values
+
+              ```http
+              PATCH /articles/1 HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "relationships": {
+                    "author": {
+                      "data": { "type": "people", "id": "1" }
+                    }
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Relationships
+              ### To-One
+
+              ```http
+              PATCH /articles/1/relationships/author HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": { "type": "people", "id": "12" }
+              }
+              ```
+
+              ```http
+              PATCH /articles/1/relationships/author HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": null
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Relationships
+              ### To-Many - Replace
+
+              ```http
+              PATCH /articles/1/relationships/tags HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": [
+                  { "type": "tags", "id": "2" },
+                  { "type": "tags", "id": "3" }
+                ]
+              }
+              ```
+
+              ```http
+              PATCH /articles/1/relationships/tags HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": []
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Relationships
+              ### To-Many - Add
+
+              ```http
+              POST /articles/1/relationships/comments HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": [
+                  { "type": "comments", "id": "123" }
+                ]
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Updating Relationships
+              ### To-Many - Remove
+
+              ```http
+              DELETE /articles/1/relationships/comments HTTP/1.1
+              Content-Type: application/vnd.api+json
+              Accept: application/vnd.api+json
+
+              {
+                "data": [
+                  { "type": "comments", "id": "12" },
+                  { "type": "comments", "id": "13" }
+                ]
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Deleting Resources
+
+              ```http
+              DELETE /photos/1 HTTP/1.1
+              Accept: application/vnd.api+json
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Errors
+
+              The members `data` and `errors` **MUST NOT** coexist in the same document.
+
+              ```json
+              {
+                "errors": [{
+                  "id": "a unique identifier for this particular occurrence of the problem.",
+                  "links": {
+                    "about": "a link that leads to further details about this particular occurrence of the problem."
+                  },
+                  "status": "the HTTP status code applicable to this problem, expressed as a string value.",
+                  "code": "an application-specific error code, expressed as a string value.",
+                  "title": "a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.",
+                  "detail": "a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.",
+                  "source": {
+                    "pointer": "a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. '/data' for a primary data object, or '/data/attributes/title' for a specific attribute].",
+                    "parameter": "a string indicating which URI query parameter caused the error."
+                  },
+                  "meta": "a meta object containing non-standard meta-information about the error."
+                }]
+              }
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## JSONAPI::Resources
+
+            - Resources
+            - Controllers
+            - Routing
+          </textarea>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Resources
+
+              ```ruby
+              class ArticleResource < JSONAPI::Resource
+              end
+              ```
+
+              ```ruby
+              class AuthorResource < JSONAPI::Resource
+                model_name 'Person'
+              end
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Attributes
+
+              ```ruby
+              class ArticleResource < JSONAPI::Resource
+                attribute :title
+                attributes :body,
+                           :state
+              end
+              ```
+
+              ```json
+              {
+                "data": {
+                  "type": "articles",
+                  "id": "1",
+                  "attributes": {
+                    "title": "Rails is Omakase",
+                    "body": "Lots of words to explain why Rails is Omakase.",
+                    "state": "published"
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Attributes
+              ### computed attributes
+
+              ```ruby
+              class AuthorResource < JSONAPI::Resource
+                model_name 'Person'
+
+                attributes :first_name, :last_name
+                attribute :full_name
+
+                def full_name
+                  "#{@model.first_name} #{@model.last_name}"
+                end
+
+                def self.creatable_fields(context)
+                  super - [:full_name]
+                end
+
+                def self.updatable_fields(context)
+                  super - [:full_name]
+                end
+              end
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Relationships
+
+              ```ruby
+              class ArticleResource < JSONAPI::Resource
+                relationship :author, to: :one
+                relationship :comments, to: :many
+
+                # has_one :author
+                # has_many :comments
+              end
+              ```
+
+              ```json
+              {
+                "relationships": {
+                  "author": {
+                    "links": {
+                      "self": "http://example.com/articles/1/relationships/author",
+                      "related": "http://example.com/articles/1/author"
+                    },
+                    "data": { "type": "people", "id": "9" }
+                  },
+                  "comments": {
+                    "links": {
+                      "self": "http://example.com/articles/1/relationships/comments",
+                      "related": "http://example.com/articles/1/comments"
+                    },
+                    "data": [
+                      { "type": "comments", "id": "5" },
+                      { "type": "comments", "id": "12" }
+                    ]
+                  }
+                }
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Filters
+
+              ```ruby
+              class ArticleResource < JSONAPI::Resource
+                attributes :title, :body, :state
+
+                filter :state #, default: 'published'
+              end
+              ```
+
+              ```ruby
+              class AuthorResource < JSONAPI::Resource
+                attributes :first_name, :last_name, :age
+
+                filter :age_range,
+                       verify: lambda { |values, _context|
+                         return if values.empty?
+
+                         # We only allow one age_range
+                         # Value params will have a format like '19-22'
+                         # Ensure the values are integers
+                         age_range = values.first.split('-').map(&:to_i)
+                         # Ensure we have a tuple
+                         age_range.size == 2 ? age_range : nil
+                       },
+                       apply:  lambda { |records, values, _options|
+                         return records if values.blank?
+                         records.search_by_age_range(*values)
+                       }
+              end
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Pagination
+
+              ```ruby
+              class ArticleResource < JSONAPI::Resource
+                attributes :title, :body, :state
+
+                paginator :paged # :offset
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Controller
+
+              ```ruby
+              class ArticlesController < JSONAPI::ResourceController
+              end
+              ```
+
+              ```ruby
+              class ArticlesController < ActionController::API
+                include JSONAPI::ActsAsResourceController
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Routing
+
+              ```ruby
+              Rails.application.routes.draw do
+                jsonapi_resources :articles
+                jsonapi_resources :authors
+                jsonapi_resources :comments
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <h2>Demo</h2>
+        </section>
+
+        <section>
+          <ul>
+            <li>manuel@funkensturm.de</li>
+            <li>@fsmanuel</li>
+            <li>github.com/fsmanuel</li>
+            <li>github.com/funkensturm</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Q&A</h1>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+        history: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

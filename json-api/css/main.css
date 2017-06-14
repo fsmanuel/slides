@@ -1,0 +1,9 @@
+.reveal pre {
+  font-size: 0.4em;
+}
+
+.reveal p code {
+  border-radius: 4px;
+  background: grey;
+  padding: 2px 6px;
+}
