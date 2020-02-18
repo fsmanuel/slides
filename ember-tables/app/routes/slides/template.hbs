@@ -1,0 +1,31 @@
+{{!-- template-lint-disable no-bare-strings  --}}
+
+{{#if this.collapsed}}
+  {{#each this.slides as |slide|}}
+    <LinkTo @route={{slide.route}}>{{slide.label}}</LinkTo>
+  {{/each}}
+{{else}}
+  <h1 class="u-margin-bottom-none">ember-intl Patterns</h1>
+  <h3>Organize Your Translations</h3>
+
+        <section>
+          <h2>Who am I?</h2>
+          <p>
+            Manuel Wiedenmann<br>
+            Ruby on Rails & Ember.js freelancer.<br>
+            I love Open Source and a lot of other things.
+          </p>
+
+          <Utils::Contact />
+
+        </section>
+
+  <h4 class="u-margin-bottom-none">Table of Contents</h4>
+  {{#each this.slides as |slide|}}
+    <LinkTo @route={{slide.route}}>{{slide.label}}</LinkTo><br>
+  {{/each}}
+{{/if}}
+
+<div class="c-slide">
+  {{outlet}}
+</div>

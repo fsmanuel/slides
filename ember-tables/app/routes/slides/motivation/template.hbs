@@ -1,0 +1,37 @@
+{{!-- template-lint-disable no-bare-strings  --}}
+
+<h2>Motivation</h2>
+
+Client with a flat JS file of all there translations (> 1000 loc).
+
+<div class="o-layout">
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="js">
+// translations/de.js
+{
+  'a': 'A',
+  'b': 'B',
+  'c': 'C',
+  'd': 'D',
+  'e': 'E',
+  'f': 'F',
+  'filters - Something': 'Something',
+  'g': 'G',
+  'h': 'H',
+  'i': 'I',
+  ...
+}
+    </Utils::HighlightJs>
+  </div>
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="shell">
+ember install ember-intl
+    </Utils::HighlightJs>
+    <ul>
+      <li>Old system and ember-intl side by side</li>
+      <li>Refactor components and use ember-intl</li>
+    </ul>
+    A lot of models have the <strong>same attributes</strong>
+    but they are <strong>not always</strong> translated the same.
+  </div>
+</div>

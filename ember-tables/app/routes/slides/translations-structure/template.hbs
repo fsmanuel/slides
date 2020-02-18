@@ -1,0 +1,48 @@
+{{!-- template-lint-disable no-bare-strings  --}}
+
+<h2>Translations Structure (DRY but flexible):</h2>
+
+<div class="o-layout">
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="yaml">
+forms:
+  defaults:
+    fields:
+      state: State
+
+  author:
+    fields:
+      name: Name
+
+  post:
+    fields:
+      title: Title
+    </Utils::HighlightJs>
+  </div>
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="yaml">
+tables:
+  defaults:
+    fields:
+      id: ID
+
+  author:
+    fields:
+      name: Author Name
+
+
+
+.
+    </Utils::HighlightJs>
+  </div>
+</div>
+
+Everyone familiar with Ruby on Rails and
+<a
+  href="https://github.com/heartcombo/simple_form"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  simple_form
+</a>
+may recognize this pattern.

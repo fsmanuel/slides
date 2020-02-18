@@ -1,0 +1,68 @@
+{{!-- template-lint-disable no-bare-strings  --}}
+
+<h2>Examples</h2>
+
+<div class="o-layout">
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="htmlbars">
+&lt;Form::Field
+  @modelName="post"
+  @attribute="title"
+  @label={{false}}
+  @hint={{false}}
+/>
+    </Utils::HighlightJs>
+  </div>
+  <div class="o-layout__item u-1/2 u-padding-top">
+    <Form::Field
+      @modelName="post"
+      @attribute="title"
+      @label={{false}}
+      @hint={{false}}
+    />
+  </div>
+</div>
+
+
+<div class="o-layout">
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="htmlbars">
+&lt;Form::Field
+  @modelName="post"
+  @attribute="title"
+  @value="Super Blog Post"
+/>
+    </Utils::HighlightJs>
+  </div>
+  <div class="o-layout__item u-1/2 u-padding-top">
+    <Form::Field
+      @modelName="post"
+      @attribute="title"
+      @value="Super Blog Post"
+    />
+  </div>
+</div>
+
+
+<div class="o-layout">
+  <div class="o-layout__item u-1/2">
+    <Utils::HighlightJs @lang="htmlbars">
+&lt;Form::Field
+  @modelName="post"
+  @attribute="title"
+  @label="Clickbait Title"
+  @hint="Must be epic!"
+  @value="Epic enough?"
+/>
+    </Utils::HighlightJs>
+  </div>
+  <div class="o-layout__item u-1/2 u-padding-top">
+    <Form::Field
+      @modelName="post"
+      @attribute="title"
+      @label="Clickbait Title"
+      @hint="Must be epic!"
+      @value="Epic enough?"
+    />
+  </div>
+</div>
