@@ -1,0 +1,13 @@
+tables:
+  cell-loading: Loading...
+  no-records: No Records found!
+
+  defaults:
+    fields:
+      id: ID
+      createdAt: Created
+      updatedAt: Updated
+
+  post:
+    fields:
+      title: Post Title

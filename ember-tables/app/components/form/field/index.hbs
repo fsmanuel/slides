@@ -1,0 +1,19 @@
+<div class="c-form__field">
+  <label class="c-form__label" for={{@attribute}}>
+    {{this.label}}
+  </label>
+
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <Input
+      @value={{this.value}} 
+      class="c-form__input"
+      id={{@attribute}}
+    />
+  {{/if}}
+
+  <span class="c-form__hint">
+    {{this.hint}}
+  </span>
+</div>

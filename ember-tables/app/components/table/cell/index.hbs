@@ -1,0 +1,11 @@
+<td class="c-table__cell">
+  {{#if this.value.promise}}
+    {{#async-await this.value as |value|}}
+      {{value}}
+    {{else}}
+      {{t "tables.cell-loading"}}
+    {{/async-await}}
+  {{else}}
+    {{this.value}}
+  {{/if}}
+</td>

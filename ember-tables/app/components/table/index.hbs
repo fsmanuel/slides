@@ -1,0 +1,34 @@
+<table class="o-table o-table--fixed o-table--tiny c-table">
+  {{#if this.showHeaders}}
+    <thead class="c-table__head">
+      <tr>
+        {{#each @columns as |column|}}
+          <Table::Column
+            @column={{column}}
+            @modelName={{@modelName}}
+            @sort={{@sort}}
+            @updateSort={{@updateSort}}
+          />
+        {{/each}}
+      </tr>
+    </thead>
+  {{/if}}
+
+  <tbody class="c-table__body">
+    {{#each @records as |record|}}
+      <Table::Row
+        @record={{record}}
+        @cells={{@columns}}
+        @modelName={{@modelName}}
+        @recordActions={{@recordActions}}
+        @rowClicked={{@rowClicked}}
+      />
+    {{else}}
+      <tr>
+        <td colspan="{{@columns.length}}" class="c-table__no-records">
+          {{t "tables.no-records"}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,14 @@
+<tr
+  class="c-table__row"
+  role="button"
+  {{on "click" (fn @rowClicked @record)}}
+>
+  {{#each @cells as |cell|}}
+    <Table::Cell
+      @cell={{cell}}
+      @modelName={{@modelName}}
+      @record={{@record}}
+      @recordActions={{@recordActions}}
+    />
+  {{/each}}
+</tr>

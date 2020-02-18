@@ -1,0 +1,17 @@
+routes:
+  application:
+    nav:
+      authors: Authors
+      home: Home
+      posts: Posts
+      slides: Slides
+
+  authors:
+    index:
+      headline: Authors
+      new-record: New Author
+
+  posts:
+    index:
+      headline: Posts
+      new-record: New Post

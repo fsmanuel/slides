@@ -1,0 +1,30 @@
+forms:
+  buttons:
+    save: Speichern
+
+  defaults:
+    fields:
+      state: Status
+
+    hints:
+      state: Der Status des Eintrags
+
+  author:
+    fields:
+      name: Name
+
+    options:
+      state:
+        1: Editor
+        2: Reviewer
+
+  post:
+    fields:
+      author: Autor
+      title: Titel
+
+    options:
+      state:
+        draft: Entwurf
+        published: Publiziert
+        deleted: Gelöscht

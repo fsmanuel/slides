@@ -1,0 +1,17 @@
+routes:
+  application:
+    nav:
+      authors: AutorInnen
+      home: Home
+      posts: Posts
+      slides: Slides
+
+  authors:
+    index:
+      headline: Autorinnen und Autoren
+      new-record: Neue/r AutorIn
+
+  posts:
+    index:
+      headline: Posts
+      new-record: Neuer Post

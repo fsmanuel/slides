@@ -1,0 +1,45 @@
+<Form
+  @model={{@model}}
+  @modelName={{this.modelName}}
+  as |form|
+>
+  <form.Field
+    @attribute="title"
+    @onUpdate={{this.updateAttribute}}
+  />
+
+  <form.Field
+    @attribute="author"
+  >
+    <PowerSelect
+      @options={{this.authors}}
+      @selected={{this.model.author}}
+      @onChange={{fn this.updateAttribute "author"}}
+      as |option|
+    >
+      {{option.name}}
+    </PowerSelect>
+  </form.Field>
+
+  <form.Field
+    @attribute="state"
+  >
+    <PowerSelect
+      @options={{this.stateOptions}}
+      @selected={{this.stateOptionSelected}}
+      @onChange={{this.changeState}}
+      as |option|
+    >
+      {{option.label}}
+    </PowerSelect>
+  </form.Field>
+
+
+  <button
+    type="button"
+    class="c-btn c-btn--primary c-btn--small"
+    {{on "click" this.save}}
+  >
+    {{t "forms.buttons.save"}}
+  </button>
+</Form>
