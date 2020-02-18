@@ -1,0 +1,12 @@
+$inuit-spacing-sizes-helper: (
+  null: $inuit-global-spacing-unit,
+  tiny: $inuit-global-spacing-unit-tiny,
+  small: $inuit-global-spacing-unit-small,
+  large: $inuit-global-spacing-unit-large,
+  huge: $inuit-global-spacing-unit-huge,
+  none: 0
+);
+
+@function spacing($spacing_name: null, $offset: 0) {
+  @return map-get($inuit-spacing-sizes-helper, $spacing_name) + $offset;
+}

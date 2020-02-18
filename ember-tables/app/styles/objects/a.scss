@@ -1,0 +1,9 @@
+a {
+  &:visited {
+    color: blue;
+  }
+
+  &.active {
+    color: red;
+  }
+}

@@ -3,7 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'ember-tables',
-    podModulePrefix: 'ember-tables/pods',
+    podModulePrefix: 'ember-tables/routes',
     environment,
     rootURL: '/',
     locationType: 'auto',

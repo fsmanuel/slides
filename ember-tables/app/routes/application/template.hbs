@@ -1,0 +1,35 @@
+<div class="o-wrapper">
+  <div class="o-layout u-margin-vertical">
+    <div class="o-layout__item u-1/2">
+      <div class="o-list-inline o-list-inline">
+        <LinkTo @route="application" class="o-list-inline__item">
+          {{t "routes.application.nav.home"}}
+        </LinkTo>
+
+        <LinkTo @route="slides" class="o-list-inline__item">
+          {{t "routes.application.nav.slides"}}
+        </LinkTo>
+
+        <LinkTo @route="authors" class="o-list-inline__item">
+          {{t "routes.application.nav.authors"}}
+        </LinkTo>
+
+        <LinkTo @route="posts" class="o-list-inline__item">
+          {{t "routes.application.nav.posts"}}
+        </LinkTo>
+      </div>
+    </div>
+    <div class="o-layout__item u-1/2">
+      <div class="c-language-switch">
+        <button type="button" {{on "click" (fn this.changeLocale "en")}}>
+          {{t "application.languages.en"}}
+        </button>
+        <button type="button" {{on "click" (fn this.changeLocale "de")}}>
+          {{t "application.languages.de"}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {{outlet}}
+</div>

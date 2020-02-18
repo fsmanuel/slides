@@ -1,0 +1,24 @@
+.c-table {  
+  &__head {
+    background-color: #bbbbbb;
+  }
+
+  &__column {
+    border: 1px solid #666666;
+  }
+
+  &__row {
+    &:nth-child(even) {
+      background-color: #dddddd;
+    }
+  }
+
+  &__cell {
+    border: 1px solid #666666;
+  }
+
+  &__no-records {
+    border: 1px solid #666666;
+    text-align: center;
+  }
+}
